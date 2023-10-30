@@ -20,6 +20,8 @@ class HomeTemplateView(View):
         return render(request, self.template_name, self.context)
 
     def post(self, request):
+        todo_id = request.POST.get('todo_id')
+        Todo.objects.get(pk=todo_id).delete()
         return redirect('/todo')
 
 

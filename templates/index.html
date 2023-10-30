@@ -132,25 +132,27 @@ th {
             <th>Text</th>
             <th>Expires At</th>
             <th>Owner</th>
+            <th>Remove</th>
           </tr>
         </thead>
-      {% if user.is_authenticated %}
-
-        {% for todo in todos %}
-            <tbody>
-              <tr>
-                <td>{{ todo.index }}</td>
-                <td>{{ todo.text }}</td>
-                <td>{{ todo.expires_at }}</td>
-                <td>{{ todo.owner }}</td>
-              </tr>
-            </tbody>
-        {% endfor %}
-      {% endif %}
+        <tbody>
+          {% for todo in todos %}
+            <tr>
+              <td>{{ todo.index }}</td>
+              <td>{{ todo.text }}</td>
+              <td>{{ todo.expires_at }}</td>
+              <td>{{ todo.owner }}</td>
+              <td>
+                <button onclick="removeTodoItem(this)">Remove</button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </div>
   </div>
 {% endblock %}
+
 
 {% block js %}
   <script>
@@ -185,5 +187,12 @@ form.addEventListener('submit', function(e) {
     input.value = ''; // Clear the input field
   }
 });
+
+  </script>
+    <script>
+    function removeTodoItem(button) {
+      var row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
   </script>
 {% endblock %}
