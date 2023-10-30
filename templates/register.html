@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+  {% block title %}<title>Register Page</title>{% endblock %}
+
+
+{% block css %}
+<style>
+    .container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.container h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+  padding: 8px;
+  width: 200px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #555;
+}
+
+.navbar {
+  background-color: #333;
+  padding: 10px;
+  text-align: center;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.navbar li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.navbar li a:hover {
+  background-color: #555;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+  <div class="container">
+    <h1>Register</h1>
+    <form>
+control        {% csrf_token %}
+      <div class="form-control">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name">
+      </div>
+      <div class="form-control">
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name">
+      </div>
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input type="email" name="email" placeholder="Email" id="email">
+        </div>
+      <div class="form-control">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter a username">
+      </div>
+      <div class="form-control">
+        <label for="password1">Password</label>
+        <input type="password" id="password1" name="password1" placeholder="Enter a password">
+      </div>
+      <div class="form-control">
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2" placeholder="Confirm your password">
+      </div>
+        <li class="text-secondary">Do you have account ? <a href="/accounts/login"> Sign in</a> </li>
+        <br>
+      <button type="submit">Register</button>
+
+    </form>
+  </div>
+{% endblock %}

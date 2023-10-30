@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% block title %} <title>Home</title> {% endblock %}
+{% block css %}
+<style>
+  .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+li span {
+  margin-right: 10px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+.navbar {
+  background-color: #333;
+  padding: 10px;
+  text-align: center;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.navbar li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.navbar li a:hover {
+  background-color: #555;
+}
+
+.todos {
+  margin-top: 20px;
+}
+
+.todos h2 {
+  font-size: 24px;
+}
+
+.todos ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todos li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+   <div class="container">
+    <h1>Welcome to the Home Page</h1>
+    <div class="todos">
+      <h2>Todos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Text</th>
+            <th>Expires At</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+      {% if user.is_authenticated %}
+
+        {% for todo in todos %}
+            <tbody>
+              <tr>
+                <td>{{ todo.index }}</td>
+                <td>{{ todo.text }}</td>
+                <td>{{ todo.expires_at }}</td>
+                <td>{{ todo.owner }}</td>
+              </tr>
+            </tbody>
+        {% endfor %}
+      {% endif %}
+      </table>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    // Get HTML elements
+const form = document.getElementById('todo-form');
+const input = document.getElementById('todo-input');
+const todoList = document.getElementById('todo-list');
+
+// Add todo event listener
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // Prevent form submission
+
+  const todoText = input.value.trim(); // Get the todo text
+
+  if (todoText !== '') {
+    const todoItem = document.createElement('li'); // Create li element
+    const todoTextSpan = document.createElement('span'); // Create span element
+    const deleteButton = document.createElement('button'); // Create delete button
+
+    todoTextSpan.innerText = todoText; // Set the todo text
+    deleteButton.innerText = 'Delete'; // Set delete button text
+
+    // Add click event listener to delete button
+    deleteButton.addEventListener('click', function() {
+      todoList.removeChild(todoItem); // Remove the todo item
+    });
+
+    todoItem.appendChild(todoTextSpan); // Append span to li
+    todoItem.appendChild(deleteButton); // Append delete button to li
+    todoList.appendChild(todoItem); // Append li to ul
+
+    input.value = ''; // Clear the input field
+  }
+});
+  </script>
+{% endblock %}
